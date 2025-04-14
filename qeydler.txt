@@ -1,0 +1,1 @@
+Genre ve Author Idleri int elemek olar
