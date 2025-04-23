@@ -2,6 +2,7 @@
 using API.DTOs.RegisterDtos;
 using API.Entities;
 using API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +11,18 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
+    
     public class UserController : ControllerBase
     {
         private readonly LibraryContext _context;
-        public UserController(LibraryContext context)
+        private readonly AuthHelper _authhelper;
+        public UserController(LibraryContext context,AuthHelper authhelper)
         {
             _context = context;
+            _authhelper = authhelper;
         }
+
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
         {
@@ -40,6 +46,7 @@ namespace API.Controllers
             return Ok(new { Message = "User registered successfully." });
 
         }
+        
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -50,8 +57,10 @@ namespace API.Controllers
                 return Unauthorized("Invalid email or password.");
             if (!PasswordHasher.VerifyPasswordHash(loginDto.Password, user.PasswordHash, user.PasswordSalt))
                 return Unauthorized("Invalid email or password.");
-            
-            return Ok(new { Message = "User logged in successfully." });
+
+            var token = _authhelper.CreateToken(loginDto.Email, user.Id);
+
+            return Ok(new {token,Message = "User logged in successfully." }); //Token = token
 
 
 

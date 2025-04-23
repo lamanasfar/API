@@ -1,6 +1,7 @@
 ﻿using API.Context;
 using API.DTOs.AuthsDtos;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+     
     public class AuthController : ControllerBase
     {
         private readonly LibraryContext _context;
