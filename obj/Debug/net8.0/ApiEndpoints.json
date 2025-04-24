@@ -175,6 +175,37 @@
   },
   {
     "ContainingType": "API.Controllers.BooksController",
+    "Method": "GetPagination",
+    "RelativePath": "api/Books/pagination",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "API.Models.PagedResult\u00601[[API.Entities.Book, API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.BooksController",
     "Method": "GetSortingBooks",
     "RelativePath": "api/Books/sorting",
     "HttpMethod": "GET",

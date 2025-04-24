@@ -2,6 +2,7 @@
 using API.DTOs.BooksDtos;
 using API.Entities;
 using API.Interfaces;
+using API.Models;
 using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,12 @@ namespace API.Controllers
     {
 
         private readonly LibraryContext _context;
-       
+
         public BooksController(LibraryContext context)
         {
             _context = context;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult> GetBook()
         {
@@ -38,7 +39,7 @@ namespace API.Controllers
         }
 
         [HttpGet("sorting")]
-        public async Task<ActionResult>GetSortingBooks(sbyte sortValue)
+        public async Task<ActionResult> GetSortingBooks(sbyte sortValue)
         {
             List<BookNameSortingDto> bookNameSorting = await _context.Books.Where(s => s.IsActive == true).Select(s => new BookNameSortingDto
             {
@@ -65,9 +66,9 @@ namespace API.Controllers
             return Ok(bookNameSorting);
 
         }
-     
 
-         
+
+
 
 
         [HttpGet("filtering")]
@@ -80,11 +81,26 @@ namespace API.Controllers
             }).ToListAsync();
             return Ok(filteringBooks);
         }
+        [HttpGet("pagination")]
+        public async Task<ActionResult<PagedResult<Book>>> GetPagination(int pageNumber,int pageSize)
+        {
+            var totalBooks = _context.Books.Count();
+            var books =  await _context.Books.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            return new PagedResult<Book>
+            {
+                Items = books,
+                TotalItems = totalBooks,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+        }
 
 
         [HttpPost]
-            public async Task<ActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
-            {
+        public async Task<ActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
+        {
             if (await _context.Books.AnyAsync(b => b.BookName.ToLower() == bookCreateDto.BookName.ToLower()))
                 return BadRequest("Book is exists!");
 
@@ -99,10 +115,10 @@ namespace API.Controllers
                 IsActive = true
 
             };
-                await _context.AddAsync(newbook);
-                await _context.SaveChangesAsync();
-                return Ok(newbook);
-            }
+            await _context.AddAsync(newbook);
+            await _context.SaveChangesAsync();
+            return Ok(newbook);
+        }
 
         [HttpPut]
         public async Task<ActionResult> UpdateBook(Guid id, [FromBody] BookUpdateDto bookUpdateDto)
@@ -164,9 +180,9 @@ namespace API.Controllers
 
 
 
-        }
+    }
 
 
 
-    
+
 }
