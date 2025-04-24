@@ -1,1 +1,3 @@
-Genre ve Author Idleri int elemek olar
+1.Bütün validationlar? FluentValidations a ç?xar.
+2.Rollar ?lav? el?
+3.Book v? genre üçün filter v? sorting yaz,author üçün filter yaz

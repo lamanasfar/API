@@ -67,11 +67,22 @@ namespace API.Controllers
 
 
         #endregion
+        [HttpGet("filtering")]
+
+        public async Task<IActionResult> GetAuthFiltering(string name)
+        {
+            List<AuthFilteringDto> authFiltering = await _context.Authors.Where(s => s.IsActive == true && s.AuthName.Contains(name)).Select(s => new AuthFilteringDto
+            {
+                Id = s.Id,
+                AuthName = s.AuthName
+            }).ToListAsync();
+            return Ok(authFiltering);
+        }
 
         [HttpGet("sorting")]
         public async Task<IActionResult> GetAuthSorting(sbyte sortValue)
         {
-            List<AuthGetDto> authorSorting = await _context.Authors.Where(s => s.IsActive == true).Select(s => new AuthGetDto
+            List<AuthSortingDto> authorSorting = await _context.Authors.Where(s => s.IsActive == true).Select(s => new AuthSortingDto
             {
                 Id = s.Id,
                 AuthName = s.AuthName
@@ -110,7 +121,7 @@ namespace API.Controllers
         {
             if ( await _context.Authors.AnyAsync(i => i.AuthName.ToLower() == authCreateDto.AuthName.ToLower()))
                 return BadRequest("Author is exists!");
-            x(authCreateDto);
+          
             var newauth = new Author()
             {
                 AuthName = authCreateDto.AuthName,
@@ -153,10 +164,6 @@ namespace API.Controllers
             return Ok("Deleted");
         }
 
-        object x(AuthCreateDto authCreateDto)
-        {
-            authCreateDto.AuthName = "Anar";
-            return authCreateDto;
-        }
+        
     }
 }

@@ -4,7 +4,7 @@ namespace API.Entities
 {
     public class Book
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
         public string Title { get; set; }
         public string BookName { get; set; }
         public double Price { get; set; }

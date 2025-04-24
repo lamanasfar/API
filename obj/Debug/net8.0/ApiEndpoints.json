@@ -64,6 +64,22 @@
   },
   {
     "ContainingType": "API.Controllers.AuthController",
+    "Method": "GetAuthFiltering",
+    "RelativePath": "api/Auth/filtering",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AuthController",
     "Method": "GetAuthSorting",
     "RelativePath": "api/Auth/sorting",
     "HttpMethod": "GET",
@@ -142,6 +158,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "API.Controllers.BooksController",
+    "Method": "GetFilteredBooks",
+    "RelativePath": "api/Books/filtering",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.BooksController",
+    "Method": "GetSortingBooks",
+    "RelativePath": "api/Books/sorting",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sortValue",
+        "Type": "System.SByte",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controllers.GenreController",
     "Method": "GetGenre",
     "RelativePath": "api/Genre",
@@ -200,6 +248,38 @@
         "Name": "id",
         "Type": "System.Guid",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.GenreController",
+    "Method": "GetFilteringGenre",
+    "RelativePath": "api/Genre/filtering",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.GenreController",
+    "Method": "GetSortingGenre",
+    "RelativePath": "api/Genre/sorting",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sortValue",
+        "Type": "System.SByte",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

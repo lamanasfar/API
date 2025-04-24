@@ -30,6 +30,49 @@ namespace API.Controllers
 
             
         }
+        [HttpGet("sorting")]
+        public async Task<ActionResult> GetSortingGenre(sbyte sortValue)
+        {
+            List<GenreSortingDto> genreSorting = await _context.Genres.Where(s => s.IsActive == true).Select(s => new GenreSortingDto
+            {
+                Id = s.Id,
+                GenreName = s.GenreName
+            }).ToListAsync();
+
+            switch (sortValue)
+            {
+                case 0:
+                    genreSorting = genreSorting.OrderByDescending(s => s.Id).ToList();
+                    break;
+                case 1:
+                    genreSorting = genreSorting.OrderBy(s => s.GenreName).ToList();
+                    break;
+                case -1:
+                    genreSorting = genreSorting.OrderByDescending(s => s.GenreName).ToList();
+                    break;
+                default:
+                    break;
+
+
+            }
+             
+
+            return Ok(genreSorting);
+        }
+
+        [HttpGet("filtering")]
+        public async Task<ActionResult> GetFilteringGenre(string name)
+        {
+            List<GenreFilteringDto> genreFiltering = await _context.Genres.Where(s => s.IsActive == true && s.GenreName.Contains(name)).Select(s => new GenreFilteringDto
+            {
+                Id = s.Id,
+                GenreName = s.GenreName
+            }).ToListAsync();
+
+            return Ok(genreFiltering);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> CreateGenre(GenreCreateDto genreCreateDto)
         {

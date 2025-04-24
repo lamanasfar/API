@@ -36,23 +36,53 @@ namespace API.Controllers
             }).ToListAsync();
             return Ok(book);
         }
-        // [HttpGet("sorting")]
 
-        // public async Task<ActionResult> GetSortingBooks()
-        //{
-        //    List<BookNameSortingDto> sortingBooks = await _context.Books.Where(s => s.IsActive == true).Select(s => new BookNameSortingDto
-        //    {
-        //        Id = s.Id,
-        //        BookName = s.BookName
-        //    }).OrderBy(s => s.BookName).ToListAsync();
-        //    return Ok(sortingBooks);
-        //}
-       
+        [HttpGet("sorting")]
+        public async Task<ActionResult>GetSortingBooks(sbyte sortValue)
+        {
+            List<BookNameSortingDto> bookNameSorting = await _context.Books.Where(s => s.IsActive == true).Select(s => new BookNameSortingDto
+            {
+                Id = s.Id,
+                BookName = s.BookName
+            }).ToListAsync();
+
+            switch (sortValue)
+            {
+                case 0:
+                    bookNameSorting = bookNameSorting.OrderByDescending(s => s.Id).ToList();
+                    break;
+                case 1:
+                    bookNameSorting = bookNameSorting.OrderBy(s => s.BookName).ToList();
+                    break;
+                case -1:
+                    bookNameSorting = bookNameSorting.OrderByDescending(s => s.BookName).ToList();
+                    break;
+                default:
+                    break;
 
 
+            }
+            return Ok(bookNameSorting);
+
+        }
+     
+
+         
 
 
-            [HttpPost]
+        [HttpGet("filtering")]
+        public async Task<ActionResult> GetFilteredBooks(string name)
+        {
+            List<BookFilteringDto> filteringBooks = await _context.Books.Where(s => s.IsActive == true && s.BookName.Contains(name)).Select(s => new BookFilteringDto
+            {
+                Id = s.Id,
+                BookName = s.BookName
+            }).ToListAsync();
+            return Ok(filteringBooks);
+        }
+
+
+        [HttpPost]
             public async Task<ActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
             {
             if (await _context.Books.AnyAsync(b => b.BookName.ToLower() == bookCreateDto.BookName.ToLower()))
@@ -77,7 +107,7 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateBook(Guid id, [FromBody] BookUpdateDto bookUpdateDto)
         {
-            var updatedBook = await _context.Books.FirstOrDefaultAsync(s => s.Id ==id);
+            var updatedBook = await _context.Books.FirstOrDefaultAsync(s => s.Id == id);
             updatedBook.BookName = bookUpdateDto.BookName;
             updatedBook.Title = bookUpdateDto.Title;
             updatedBook.PublishDate = bookUpdateDto.PublishDate;
@@ -105,7 +135,7 @@ namespace API.Controllers
 
         }
         //[HttpGet("filter")]
-        //public IActionResult GetFilteredBooks([FromQuery] string? bookName,[FromQuery] Guid? authorId, [FromQuery] Guid? genreId)
+        //public IActionResult GetFilteredBooks([FromQuery] string? bookName, [FromQuery] Guid? authorId, [FromQuery] Guid? genreId)
         //{
         //    IQueryable<Book> books = _context.Books;
 
@@ -130,11 +160,11 @@ namespace API.Controllers
         //    return Ok(books.ToList());
 
 
-            
-            
 
 
-    }
+
+
+        }
 
 
 

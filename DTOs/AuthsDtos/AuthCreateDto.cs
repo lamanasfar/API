@@ -16,5 +16,13 @@
         public bool IsActive { get; set; } 
     }
 
-    
+    public class AuthSortingDto
+    {
+        public Guid Id { get; set; }
+        public string AuthName { get; set; }
+    }
+    public class AuthFilteringDto: AuthSortingDto
+    {
+        
+    }
 }
