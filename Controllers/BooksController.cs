@@ -82,11 +82,12 @@ namespace API.Controllers
             return Ok(filteringBooks);
         }
         [HttpGet("pagination")]
+       // public async Task<ActionResult> GetPagination(int pageNumber, int pageSize)
         public async Task<ActionResult<PagedResult<Book>>> GetPagination(int pageNumber,int pageSize)
         {
-            var totalBooks = _context.Books.Count();
-            var books =  await _context.Books.Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
+            var totalBooks = _context.Books.Count(); //db da movcud olan kitablarin sayini qaytarir
+            var books =  await _context.Books.Skip((pageNumber - 1) * pageSize)//mes pagenumber =1 (1-1)*10 yeni sehife skip etmir
+                .Take(pageSize) //ilk 10 neticeni verir
                 .ToListAsync();
             return new PagedResult<Book>
             {
@@ -94,7 +95,8 @@ namespace API.Controllers
                 TotalItems = totalBooks,
                 PageNumber = pageNumber,
                 PageSize = pageSize
-            };
+            }; //yeni obyekt yaradir ve neticeleri qaytarir
+               // return Ok(books);
         }
 
 

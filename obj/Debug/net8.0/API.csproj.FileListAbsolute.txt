@@ -172,3 +172,4 @@ C:\Users\lyama\source\repos\API\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\lyama\source\repos\API\API\obj\Debug\net8.0\ref\API.dll
 C:\Users\lyama\source\repos\API\API\obj\Debug\net8.0\API.sourcelink.json
 C:\Users\lyama\source\repos\API\API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\lyama\source\repos\API\API\bin\Debug\net8.0\FluentValidation.dll
