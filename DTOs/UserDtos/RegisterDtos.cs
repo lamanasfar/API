@@ -17,11 +17,9 @@ namespace API.DTOs.RegisterDtos
 
     public class LoginDto
     {
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email address format.")]
-        [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters.")]
+       
         public string Email { get; set; }
-        [Required]
+        
         public string Password { get; set; }
 
     }

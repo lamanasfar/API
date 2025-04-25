@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace API.Validations.UserValidation
 {
-    public class LoginDtoValidator : AbstractValidator<LoginDto>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
-        public LoginDtoValidator()
+        public LoginValidator()
         {
 
             RuleFor(user => user.Email)
