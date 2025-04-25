@@ -835,38 +835,23 @@
         "additionalProperties": false
       },
       "RegisterDto": {
-        "required": [
-          "email",
-          "firstName",
-          "lastName",
-          "password"
-        ],
         "type": "object",
         "properties": {
           "firstName": {
-            "maxLength": 50,
-            "minLength": 0,
-            "pattern": "^[a-zA-Z]+$",
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "lastName": {
-            "maxLength": 50,
-            "minLength": 0,
-            "pattern": "^[a-zA-Z]+$",
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "email": {
-            "maxLength": 100,
-            "minLength": 0,
             "type": "string",
-            "format": "email"
+            "nullable": true
           },
           "password": {
-            "maxLength": 100,
-            "minLength": 8,
-            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&]).{8,}$",
             "type": "string",
-            "format": "password"
+            "nullable": true
           }
         },
         "additionalProperties": false
