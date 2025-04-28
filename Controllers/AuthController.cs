@@ -136,7 +136,7 @@ namespace API.Controllers
         
 
         [HttpPut]
-        public async Task<ActionResult> UpdateAuth(Guid id, [FromBody] AuthUpdateDto authUpdateDto)
+        public async Task<ActionResult> UpdateAuth(int id, [FromBody] AuthUpdateDto authUpdateDto)
         {
             var updatedAuth = await _context.Authors.FirstOrDefaultAsync(s => s.Id == id);
             if (updatedAuth == null)

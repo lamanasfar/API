@@ -4,6 +4,7 @@ using API.Entities;
 using API.Interfaces;
 using API.Models;
 using API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -70,7 +71,7 @@ namespace API.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("filtering")]
         public async Task<ActionResult> GetFilteredBooks(string name)
         {
@@ -82,11 +83,11 @@ namespace API.Controllers
             return Ok(filteringBooks);
         }
         [HttpGet("pagination")]
-       // public async Task<ActionResult> GetPagination(int pageNumber, int pageSize)
-        public async Task<ActionResult<PagedResult<Book>>> GetPagination(int pageNumber,int pageSize)
+        // public async Task<ActionResult> GetPagination(int pageNumber, int pageSize)
+        public async Task<ActionResult<PagedResult<Book>>> GetPagination(int pageNumber, int pageSize)
         {
             var totalBooks = _context.Books.Count(); //db da movcud olan kitablarin sayini qaytarir
-            var books =  await _context.Books.Skip((pageNumber - 1) * pageSize)//mes pagenumber =1 (1-1)*10 yeni sehife skip etmir
+            var books = await _context.Books.Skip((pageNumber - 1) * pageSize)//mes pagenumber =1 (1-1)*10 yeni sehife skip etmir
                 .Take(pageSize) //ilk 10 neticeni verir
                 .ToListAsync();
             return new PagedResult<Book>
@@ -99,7 +100,7 @@ namespace API.Controllers
                // return Ok(books);
         }
 
-
+        
         [HttpPost]
         public async Task<ActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
         {
@@ -121,9 +122,9 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return Ok(newbook);
         }
-
+        [Authorize(Roles = "")]
         [HttpPut]
-        public async Task<ActionResult> UpdateBook(Guid id, [FromBody] BookUpdateDto bookUpdateDto)
+        public async Task<ActionResult> UpdateBook(int id, [FromBody] BookUpdateDto bookUpdateDto)
         {
             var updatedBook = await _context.Books.FirstOrDefaultAsync(s => s.Id == id);
             updatedBook.BookName = bookUpdateDto.BookName;

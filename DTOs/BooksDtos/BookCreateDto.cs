@@ -6,14 +6,14 @@
         public string Title { get; set; }
         public double Price { get; set; }
         public DateTime PublishDate { get; set; }
-        public Guid AuthId { get; set; }
-        public Guid GenreId { get; set; }
+        public int AuthId { get; set; }
+        public int GenreId { get; set; }
         public bool IsActive { get; set; }
     }
 
     public class BookGetDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string BookName { get; set; }
         public string Title { get; set; }
         public double Price { get; set; }
@@ -31,7 +31,7 @@
 
     public class BookNameSortingDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string BookName { get; set; }
     }
     public class BookFilteringDto:BookNameSortingDto

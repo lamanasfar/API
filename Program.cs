@@ -15,7 +15,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-
+ 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
@@ -24,20 +24,12 @@ builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();
 
 builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
-//builder.Services.AddIdentity<User,IdentityRole>(opt =>
-//{
-//    opt.Password.RequiredLength = 7;
-//    opt.Password.RequireDigit = false;
-//    opt.Password.RequireUppercase = false;
+ 
 
-
-
-//}).AddEntityFrameworkStores<LibraryContext>();
+ 
 
 builder.Services.AddScoped<AuthHelper>();
-//builder.Services.AddScoped<IValidator<RegisterDto>, RegisterValidator>();
-//builder.Services.AddScoped<IValidator<LoginDto>, LoginValidator>();
-
+ 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
  
@@ -58,9 +50,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-//builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization(options =>
+//{
+//    // Roles ?sasl? Authorization
+//    options.AddPolicy("User", policy => policy.RequireRole("User"));
+//    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+//});
+
 
 var app = builder.Build();
+ 
 
 app.UseSwagger();
 app.UseSwaggerUI();

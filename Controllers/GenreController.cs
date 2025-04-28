@@ -93,7 +93,7 @@ namespace API.Controllers
             return Ok(newGenre);
         }
         [HttpPut]
-        public async Task<ActionResult> UpdateGenre(Guid id, GenreUpdateDto genreUpdateDto)
+        public async Task<ActionResult> UpdateGenre(int id, GenreUpdateDto genreUpdateDto)
         {
             var updatedGenre = await _context.Genres.FirstOrDefaultAsync(s => s.Id == id);
             if (updatedGenre == null)

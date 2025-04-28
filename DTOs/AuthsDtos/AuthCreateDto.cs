@@ -2,7 +2,7 @@
 {
     public class AuthGetDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string AuthName { get; set; }
     }
     public class AuthUpdateDto : AuthCreateDto
@@ -18,7 +18,7 @@
 
     public class AuthSortingDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string AuthName { get; set; }
     }
     public class AuthFilteringDto: AuthSortingDto

@@ -2,7 +2,7 @@
 {
     public class GenreGetDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string GenreName { get; set; }
     }
     public class GenreCreateDto
@@ -16,7 +16,7 @@
     }
     public class GenreSortingDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string GenreName { get; set; }
     }
     public class GenreFilteringDto:GenreSortingDto
