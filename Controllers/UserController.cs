@@ -79,9 +79,10 @@ namespace API.Controllers
 
             PasswordHasher.CreatePasswordHash(registerDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            var role = await _context.Roles.FirstOrDefaultAsync(s => s.Name == "User");
+            var role = await _context.Roles.FirstOrDefaultAsync(s => s.Name == registerDto.RoleName);
             if (role == null)
                 return BadRequest("Role 'User' not found.");
+            
 
             var user = new User
             {
@@ -90,7 +91,7 @@ namespace API.Controllers
                 Email = registerDto.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                IsActive = registerDto.IsActive,
+                IsActive = true,
                 RoleId = role.Id
             };  
 
@@ -100,7 +101,7 @@ namespace API.Controllers
         }
 
 
-        //[Authorize(Roles = "User")]
+        
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {

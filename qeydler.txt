@@ -1,4 +1,4 @@
 1.Bütün validationlar? FluentValidations a ç?xar.-done
 2.Book v? genre üçün filter v? sorting yaz,author üçün filter yaz-done
 3.Pagination yaz-done
-4.Rollar ?lav? el?---
+4.Rollar ?lav? el?---done

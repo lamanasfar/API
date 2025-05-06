@@ -71,7 +71,7 @@ namespace API.Controllers
 
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpGet("filtering")]
         public async Task<ActionResult> GetFilteredBooks(string name)
         {
@@ -122,7 +122,7 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return Ok(newbook);
         }
-        [Authorize(Roles = "")]
+        
         [HttpPut]
         public async Task<ActionResult> UpdateBook(int id, [FromBody] BookUpdateDto bookUpdateDto)
         {
